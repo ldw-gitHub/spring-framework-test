@@ -1,12 +1,28 @@
 package org.ldw;
 
+import com.sun.webkit.graphics.WCMediaPlayer;
+import org.ldw.design.abstractfactory.DataAccess;
+import org.ldw.design.abstractfactory.SqlServerUser;
+import org.ldw.design.abstractfactory.User;
+import org.ldw.design.adapter.Forwards;
+import org.ldw.design.adapter.Player;
+import org.ldw.design.adapter.Translator;
 import org.ldw.design.builder.ConcreateBuilder1;
 import org.ldw.design.builder.ConcreateBuilder2;
 import org.ldw.design.builder.Director;
 import org.ldw.design.builder.Product;
+import org.ldw.design.composite.Composite;
+import org.ldw.design.composite.Leaf;
 import org.ldw.design.facade.Facade;
+import org.ldw.design.iterator.ConcreateAggregate;
+import org.ldw.design.iterator.Iterator;
+import org.ldw.design.memento.Caretaker;
+import org.ldw.design.memento.Originator;
 import org.ldw.design.observer.ConcreateObserver;
 import org.ldw.design.observer.ConcreateSubject;
+import org.ldw.design.singleton.Singleton;
+import org.ldw.design.state.ConcreateStateA;
+import org.ldw.design.state.Context;
 
 /**
  * @description
@@ -33,7 +49,7 @@ public class IocAppTest {
 	 * @throws CloneNotSupportedException
 	 */
 
-	public static void main(String[] args) throws CloneNotSupportedException {
+	public static void main(String[] args) throws Exception {
 		//1、策略模式：可以用来封装几乎任何类型的规则，相同得方法，不同得结构
 		// 只要在分析过程中听到需要在不同的时间应用不同的业务规则，
 		// 就可以考虑使用策略模式处理这种变化的可能性
@@ -111,18 +127,118 @@ public class IocAppTest {
 
 		//8、观察者模式-（发布-订阅模式）：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。
 		//这个主题对象在状态发生变化时，会通知所有观察者对象，使它们能够自动更新自己
-		ConcreateSubject s = new ConcreateSubject();
-		s.attach(new ConcreateObserver("X",s));
-		s.attach(new ConcreateObserver("Y",s));
-		s.attach(new ConcreateObserver("Z",s));
-
-		s.setSubjectState("ABC");
-		s.notifys();
+//		ConcreateSubject s = new ConcreateSubject();
+//		s.attach(new ConcreateObserver("X",s));
+//		s.attach(new ConcreateObserver("Y",s));
+//		s.attach(new ConcreateObserver("Z",s));
+//
+//		s.setSubjectState("ABC");
+//		s.notifys();
 		//当一个对象的改变需要同时改变其它对象的时候，而且它不知道具体有多少对象有待改变，应该考虑使用观察者模式
 		//观察者模式所作的工作其实就是在解除耦合，让耦合的双方都依赖于抽象，而不是依赖于具体，从而使得它们各自独立地改变和复用
 		//事件委托实现
 
 		//9、抽象工厂模式：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类
+
+		//用反射+抽象工厂的数据访问程序
+		/*SqlServerUser baseSql = DataAccess.createBaseSql();
+		baseSql.insert(new User());*/
+
+		//10、状态模式：当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类
+		//主要解决的是当控制一个对象状态转换的条件表达式过于复杂时的情况，把状态的判断逻辑转移到表示不同状态的一系列类当中，可以把复杂的判断逻辑简化
+//		Context context = new Context(new ConcreateStateA());
+//		context.request();
+//		context.request();
+//		context.request();
+//		context.request();
+
+		//11、适配器模式adapter
+		//将一个类的接口转换成客户希望的另外一个接口，适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作
+		//类适配器模式/对象适配器模式
+//		Player b = new Forwards("巴蒂尔");
+//		b.attack();
+//		Player ym = new Translator("姚明");
+//		ym.attack();
+//		ym.defense();
+
+
+		//12、备忘录模式(memento)：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态，这样以后就可以将该对象恢复之前的状态
+		//适用功能比较复杂，但需要维护或记录属性历史的类，或者需要保存的属性只是众多属性中的一小部分
+//		Originator o = new Originator();
+//		o.setState("on");
+//		o.show();
+//
+//		Caretaker c = new Caretaker(); //保存状态
+//		c.setMemento(o.createMemento());
+//
+//		o.setState("off"); //更改状态
+//		o.show();
+//
+//		o.setMemento(c.getMemento()); //恢复存档状态
+//		o.show();
+
+		//13、组合模式（composite）:将对象组合成树形结构以表示‘部分-整体’的层次结构。
+		//组合模式使得用户对单个对象和组合对象的使用具有一致性
+//		Composite root = new Composite("root");//生成树根root，根上长出两叶LeafA和LeafB
+//		root.add(new Leaf("Leaf A"));
+//		root.add(new Leaf("Leaf B"));
+//
+//		Composite comp = new Composite("Composite X");//根上长出分枝CompositeX，分枝也有两叶子
+//		comp.add(new Leaf("Leaf XA"));
+//		comp.add(new Leaf("Leaf XB"));
+//
+//		root.add(comp);
+//
+//		Composite comp2 = new Composite("Composite XY");//CompositeX在长出分枝，分枝也有两叶子
+//		comp2.add(new Leaf("Leaf XYA"));
+//		comp2.add(new Leaf("Leaf XYB"));
+//
+//		comp.add(comp2);
+//
+//		root.display(1);
+
+		//14、迭代器模式(iterator) : 提供一种方法顺序访问一个聚合对象中各个元素，而又不暴露该对象的内部表示
+		//一个聚焦对象，而且不管这些对象是什么都需要遍历的时候，你就应该考虑用迭代器模式
+//		ConcreateAggregate a = new ConcreateAggregate();
+//		a.setIndex(0,"大佬");
+//		a.setIndex(1,"中佬");
+//		a.setIndex(2,"屌丝");
+//		a.setIndex(3,"美女");
+//		a.setIndex(4,"巨物");
+//		a.setIndex(5,"巨人");
+//
+//		Iterator iterator = a.createIterator();
+//		while(!iterator.isDone()){
+//			System.out.println(iterator.currentItem());
+//			iterator.next();
+//		}
+
+
+		//15、单列模式(singleton)：保证一个类仅有一个实例，并提供一个访问它的全局访问点
+		//封装它的唯一实例，这样它可以严格地控制客户怎样访问它，以及何时访问它，简单地说就是对唯一实例的受控访问
+		Singleton instance = Singleton.getInstance();
+		Singleton instance1 = Singleton.getInstance();
+		System.out.println(instance);
+		System.out.println(instance1);
+
+
+		//16、桥接模式(bridge)：将抽象部分与它的实现部分分离，使它们都可以独立的变化
+		//17、命令模式(command)：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化，对请求排队或记录请求日志，以及支持可撤销的操作
+		//18、职责链模式
+		//19、中介者模式
+		//20、享元模式
+		//21、解释器模式
+		//22、访问者模式
+		//23、总结：
+
+
+
+
+
+
+
+
+		
 
 
 	}
