@@ -7,6 +7,10 @@ import org.ldw.design.abstractfactory.User;
 import org.ldw.design.adapter.Forwards;
 import org.ldw.design.adapter.Player;
 import org.ldw.design.adapter.Translator;
+import org.ldw.design.bridge.Abstraction;
+import org.ldw.design.bridge.ConcreateImplementorA;
+import org.ldw.design.bridge.ConcreateImplementorB;
+import org.ldw.design.bridge.DefinedAbstraction;
 import org.ldw.design.builder.ConcreateBuilder1;
 import org.ldw.design.builder.ConcreateBuilder2;
 import org.ldw.design.builder.Director;
@@ -14,15 +18,25 @@ import org.ldw.design.builder.Product;
 import org.ldw.design.composite.Composite;
 import org.ldw.design.composite.Leaf;
 import org.ldw.design.facade.Facade;
+import org.ldw.design.interpreter.AbstractExpression;
+import org.ldw.design.interpreter.Context;
+import org.ldw.design.interpreter.NonterminalExpression;
+import org.ldw.design.interpreter.TerminalExpression;
 import org.ldw.design.iterator.ConcreateAggregate;
 import org.ldw.design.iterator.Iterator;
 import org.ldw.design.memento.Caretaker;
 import org.ldw.design.memento.Originator;
 import org.ldw.design.observer.ConcreateObserver;
 import org.ldw.design.observer.ConcreateSubject;
+import org.ldw.design.responsibility.CommonManager;
+import org.ldw.design.responsibility.Majordomo;
+import org.ldw.design.responsibility.Request;
 import org.ldw.design.singleton.Singleton;
 import org.ldw.design.state.ConcreateStateA;
-import org.ldw.design.state.Context;
+import org.ldw.design.visitor.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description
@@ -50,6 +64,9 @@ public class IocAppTest {
 	 */
 
 	public static void main(String[] args) throws Exception {
+		//UML 类图
+
+
 		//1、策略模式：可以用来封装几乎任何类型的规则，相同得方法，不同得结构
 		// 只要在分析过程中听到需要在不同的时间应用不同的业务规则，
 		// 就可以考虑使用策略模式处理这种变化的可能性
@@ -216,20 +233,72 @@ public class IocAppTest {
 
 		//15、单列模式(singleton)：保证一个类仅有一个实例，并提供一个访问它的全局访问点
 		//封装它的唯一实例，这样它可以严格地控制客户怎样访问它，以及何时访问它，简单地说就是对唯一实例的受控访问
-		Singleton instance = Singleton.getInstance();
-		Singleton instance1 = Singleton.getInstance();
-		System.out.println(instance);
-		System.out.println(instance1);
+//		Singleton instance = Singleton.getInstance();
+//		Singleton instance1 = Singleton.getInstance();
+//		System.out.println(instance);
+//		System.out.println(instance1);
 
 
 		//16、桥接模式(bridge)：将抽象部分与它的实现部分分离，使它们都可以独立的变化
+		//合成/聚合复用原则，尽量使用合成/聚合，尽量不要使用类继承
+		//实现系统可能有多角度分类，每一种分类都有可能变化，那么就把这种多角度分离出来让它们独立变化，减少它们之间的耦合
+//		Abstraction ab = new DefinedAbstraction();
+//
+//		ab.setImplementor(new ConcreateImplementorA());
+//		ab.operation();
+//
+//		ab.setImplementor(new ConcreateImplementorB());
+//		ab.operation();
+
 		//17、命令模式(command)：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化，对请求排队或记录请求日志，以及支持可撤销的操作
-		//18、职责链模式
-		//19、中介者模式
-		//20、享元模式
-		//21、解释器模式
-		//22、访问者模式
-		//23、总结：
+
+		//18、职责链模式(chain of Responsibility)：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系
+		//将这个对象练成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止
+
+//		CommonManager jinli = new CommonManager("石凯");
+//		Majordomo zongjian = new Majordomo("黄河");
+//
+//		Request request = new Request();
+//		request.setRequestType("请假");
+//		request.setRequestContent("有事回家");
+//		request.setNumber(4);
+//
+//		//请假审批
+//		jinli.setSuperior(zongjian);
+//		jinli.requestApplications(request);
+
+		//19、中介者模式/调停者模式（mediator）：用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互
+		//中介者模式一般应用于一组对象以定义良好但是复杂的方式进行通信的场合
+		//以及想定制一个分布在多个类中的行为，而不想生成太多的子类的场合
+
+
+		//20、享元模式（flyweight）:运用共享技术有效地支持大量细粒度的对象
+
+		//21、解释器模式（interpreter）：给定一个语言，定义它的文法的一种表示，并定义一个解释器，这个解释器使用该表示来解释语言中的句子
+		//当一个语言需要解释执行，并且你可将该语言中的句子表示为一个抽象语法树时，可以用解释器模式
+//		Context context = new Context();
+//		List<AbstractExpression> list = new ArrayList<>();
+//		list.add(new TerminalExpression());
+//		list.add(new NonterminalExpression());
+//		list.add(new TerminalExpression());
+//		list.add(new TerminalExpression());
+//
+//		list.stream().forEach(e -> {
+//			e.interpret(context);
+//		});
+
+		//22、访问者模式(visitor)：表示一个作用于某个对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作
+		List<Person> list = new ArrayList<>();
+		list.add(new Woman());
+		list.add(new Man());
+		list.stream().forEach(e -> {
+			e.accept(new Success());
+			e.accept(new Marriage());
+		});
+
+		//23、总结：只要真正深入地理解了设计模式，很多设计模式其实就是原则的应用而已，或许在不知不觉中就在使用设计模式了
+
+
 
 
 
