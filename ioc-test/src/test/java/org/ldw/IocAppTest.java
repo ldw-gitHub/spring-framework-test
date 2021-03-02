@@ -64,10 +64,12 @@ public class IocAppTest {
 	 */
 
 	public static void main(String[] args) throws Exception {
+
+
 		//UML 类图
 
 
-		//1、策略模式：可以用来封装几乎任何类型的规则，相同得方法，不同得结构
+		//1、策略模式(strategy)：可以用来封装几乎任何类型的规则，相同得方法，不同得结构
 		// 只要在分析过程中听到需要在不同的时间应用不同的业务规则，
 		// 就可以考虑使用策略模式处理这种变化的可能性
 /*		Context context = new Context(new StrategyA());
@@ -78,7 +80,7 @@ public class IocAppTest {
 		Context contextb = new Context("A");
 		contextb.ContextInterface();*/
 
-		//2、装饰模式、多个方法或执行动作，可以随意调整执行顺序 可以给这些对象动态地添加职责
+		//2、装饰模式(decorator)：多个方法或执行动作，可以随意调整执行顺序 可以给这些对象动态地添加职责
 /*		ConcreateComponent c = new ConcreateComponent();
 		ConcreateDecoratorA d1 = new ConcreateDecoratorA();
 		ConcreateDecoratorB d2 = new ConcreateDecoratorB();
@@ -88,11 +90,11 @@ public class IocAppTest {
 		d2.setComponent(d1);
 		d2.operation();*/
 
-		//3、代理模式：为其它对象提供一种代理以控制对这个对象的访问
+		//3、代理模式（proxy）：为其它对象提供一种代理以控制对这个对象的访问
 	/*	Proxy proxy = new Proxy();
 		proxy.request();*/
 
-		//4、原型模式：可以给这些对象动态地添加职责 （人员信息）
+		//4、原型模式(prototype)：可以给这些对象动态地添加职责 （人员信息）
 		/*ConcreatePrototype p1 = new ConcreatePrototype("1");
 		ConcreatePrototype p2 = (ConcreatePrototype) p1.clone();
 
@@ -109,7 +111,7 @@ public class IocAppTest {
 //		System.out.println(r == r1);
 //		System.out.println(r.equals(r1));
 
-		//5、模板方法模式：定义一个操作中得算法得骨架，而将一些步骤延迟到子类中，（简历模板）
+		//5、模板方法模式(templateMethod)：定义一个操作中得算法得骨架，而将一些步骤延迟到子类中，（简历模板）
 		// 模板方法使得子类可以不改变一个算法得结构即可重新定义该算法得某些特定步骤
 		// 通过把不变得行为搬移到超类，去除子类中得重复代码来体现它得优势
 	/*	TamplateA tamplateA = new TamplateA();
@@ -117,7 +119,7 @@ public class IocAppTest {
 		TamplateB tamplateB = new TamplateB();
 		tamplateB.templateMethods();*/
 
-		//6、外观模式-门面模式：为子系统中的一组接口提供一个一致的界面，此模式定义一个高层接口，这个接口使得这一子系统更加容易使用（炒股基金组合）
+		//6、外观模式-门面模式(facade)：为子系统中的一组接口提供一个一致的界面，此模式定义一个高层接口，这个接口使得这一子系统更加容易使用（炒股基金组合）
 		//首先，在设计初期阶段，应该要有意识的将不同的两个层分离
 		//其次，在开放阶段，子系统往往因为不断的重构演化而变得越来越复杂
 		//第三，在维护一个遗留的大型系统时，可能这个系统已经非常难以维护和扩展了
@@ -126,7 +128,7 @@ public class IocAppTest {
 		System.out.println("----------------------");
 		facade.methodB();*/
 
-		//7、建造者模式-生成器模式：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示
+		//7、建造者模式-生成器模式(builder)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示
 /*		Director director = new Director();
 		ConcreateBuilder1 concreateBuilder1 = new ConcreateBuilder1();
 		ConcreateBuilder2 concreateBuilder2 = new ConcreateBuilder2();
@@ -142,7 +144,7 @@ public class IocAppTest {
 		//建造者模式是在当创建复杂对象的算法应该独立于该对象的组成部分，以及它们的装配方式时适用的模式
 
 
-		//8、观察者模式-（发布-订阅模式）：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。
+		//8、观察者模式-（发布-订阅模式）(observer)：定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个主题对象。
 		//这个主题对象在状态发生变化时，会通知所有观察者对象，使它们能够自动更新自己
 //		ConcreateSubject s = new ConcreateSubject();
 //		s.attach(new ConcreateObserver("X",s));
@@ -155,13 +157,13 @@ public class IocAppTest {
 		//观察者模式所作的工作其实就是在解除耦合，让耦合的双方都依赖于抽象，而不是依赖于具体，从而使得它们各自独立地改变和复用
 		//事件委托实现
 
-		//9、抽象工厂模式：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类
+		//9、抽象工厂模式(abstract Factory)：提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类
 
 		//用反射+抽象工厂的数据访问程序
 		/*SqlServerUser baseSql = DataAccess.createBaseSql();
 		baseSql.insert(new User());*/
 
-		//10、状态模式：当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类
+		//10、状态模式(state)：当一个对象的内在状态改变时允许改变其行为，这个对象看起来像是改变了其类
 		//主要解决的是当控制一个对象状态转换的条件表达式过于复杂时的情况，把状态的判断逻辑转移到表示不同状态的一系列类当中，可以把复杂的判断逻辑简化
 //		Context context = new Context(new ConcreateStateA());
 //		context.request();
@@ -169,7 +171,7 @@ public class IocAppTest {
 //		context.request();
 //		context.request();
 
-		//11、适配器模式adapter
+		//11、适配器模式(adapter):
 		//将一个类的接口转换成客户希望的另外一个接口，适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作
 		//类适配器模式/对象适配器模式
 //		Player b = new Forwards("巴蒂尔");
@@ -231,7 +233,7 @@ public class IocAppTest {
 //		}
 
 
-		//15、单列模式(singleton)：保证一个类仅有一个实例，并提供一个访问它的全局访问点
+		//15、单例模式(singleton)：保证一个类仅有一个实例，并提供一个访问它的全局访问点
 		//封装它的唯一实例，这样它可以严格地控制客户怎样访问它，以及何时访问它，简单地说就是对唯一实例的受控访问
 //		Singleton instance = Singleton.getInstance();
 //		Singleton instance1 = Singleton.getInstance();
@@ -297,6 +299,40 @@ public class IocAppTest {
 		});
 
 		//23、总结：只要真正深入地理解了设计模式，很多设计模式其实就是原则的应用而已，或许在不知不觉中就在使用设计模式了
+
+		/**
+		 * 一、创建型模式：
+		 * 		1、单例模式(singleton)：保证一个类仅有一个实例，并提供一个访问它的全局访问点。封装它的唯一实例，这样它可以严格地控制客户怎样访问它，以及何时访问它，简单地说就是对唯一实例的受控访问
+		 * 		2、工厂方法模式
+		 * 		3、抽象工厂模式：提供一个创建一系列或相关依赖对象的接口，而无需指定它们具体的类
+		 * 		4、建造者模式
+		 * 		5、原型模式
+		 * 二、结构型模式（外观模式）：
+		 * 		1、适配器模式
+		 * 		2、装饰模式
+		 * 	 	3、桥接模式
+		 * 	 	4、组合模式
+		 * 	 	5、享元模式
+		 * 	 	6、代理模式
+		 * 	 	7、外观模式
+		 * 三、行为型模式：
+		 * 		1、观察者模式
+		 * 		2、模板方法模式
+		 * 		3、命令模式
+		 * 		4、状态模式
+		 * 		5、职责链模式
+		 * 四、策略型模式：
+		 * 		1、解释器模式
+		 * 		2、中介者模式
+		 * 		3、访问者模式
+		 * 		4、策略模式
+		 * 		5、备忘录模式
+		 * 		6、迭代器模式
+		 *
+		 *
+		 *
+		 */
+
 
 
 
